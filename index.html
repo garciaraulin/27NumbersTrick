@@ -1,0 +1,302 @@
+
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2023 by raulgarcia
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>27 Numbers Trick</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style id="jsbin-css">
+        body {
+            font-family: 'Raleway', sans-serif;
+            text-align: center;
+            background: #1B1F24;
+            color: white;
+        }
+
+        p {
+            color: #7D8590;
+        }
+
+        .pile {
+            display: inline-block;
+            max-width: 100px;
+            background: #24292F;
+            margin: 10px;
+            padding: 10px;
+            border: 0px solid #cbc9c9;
+            cursor: pointer;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+        }
+
+/* Changes the colors of the piles */
+/* .card-pile1 { background-color: #163B22; }
+        .card-pile2 { background-color: #162B22; }
+        .card-pile3 { background-color: none; } */
+
+        .card {
+            border: 0px solid #ccc;
+            padding: 10px 20px 10px 20px;
+            margin: 3px;
+        }
+
+        #result {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        /* Popup Styles */
+        .popup-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1;
+            justify-content: center;
+            align-items: center;
+            display: none;
+        }
+
+        .popup {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            max-width: 90%;
+        }
+
+        .popup-letter {
+            font-size: 5rem; /* 5 times bigger */
+            font-weight: bold;
+            color: #333; /* Letter color */
+        }
+
+        .popup-button {
+            background-color: #24292F;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+
+</style>
+</head>
+<body>
+  <h1>27 Numbers <span id="reveal">Trick</span></h1>
+    <p>Think of <b>any number</b> from any row and <b>memorize it.</b></p>
+    <div id="piles">
+        <div class="pile" id="pile1" onclick="selectPile(0)"></div>
+        <div class="pile" id="pile2" onclick="selectPile(1)"></div>
+        <div class="pile" id="pile3" onclick="selectPile(2)"></div>
+    </div>
+    <p id="result"></p>
+
+    <!-- Popup -->
+    <div class="popup-container" id="popupContainer" onclick="closeNumberPopup()">
+        <div class="popup">
+            <p>Your number is:</p>
+            <div class="popup-letter" id="popupLetter"></div>
+            <button class="popup-button" id="restartButton">Do the trick again</button>
+        </div>
+    </div>
+
+<script id="jsbin-javascript">
+  
+//Compress JavaScript Code
+$(document).ready((function(){const  o=27,t=$(".pile"),n=$("#result"),e=$("#popupContainer"),c=$("#popupLetter");let r,s,i,l=[];function a(){s=void 0,i=0,l=[],h(),closeNumberPopup()}function u(){const t=[...Array(o).keys()].map((o=>o+1));return function(o){for(let t=o.length-1;t>0;t--){const n=Math.floor(Math.random()*(t+1));[o[t],o[n]]=[o[n],o[t]]}}(t),t}function p(o){const t=Math.floor(3*Math.random());[r[t],r[o]]=[r[o],r[t]],l.push(t),function(){const o=[[],[],[]];let t=0;for(let n=0;n<r.length;n++)for(let e=0;e<r[n].length;e++)o[t].push(r[n][e]),t=(t+1)%3;r=o}()}function h(){t.each((function(o){$(this).html("");r[o].forEach((o=>{const t=$("<div>").addClass("card "+f[o]).text(o);$(this).append(t),t.css("opacity","0"),setTimeout((()=>{t.addClass("animate__animated animate__bounceIn")}),50)}))})),n.html("Once you memorize a number<br>click on the row where the number is")}window.closeNumberPopup=function(){e.css("opacity","0"),setTimeout((()=>{e.css("display","none"),e.css("opacity","1")}),300)},$("#restartButton, #popupContainer").on("click",a),$("#reveal").on("click",(function(){$(".card-pile1").css("background-color","#163B22"),$(".card-pile2").css("background-color","#162B22")})),window.selectPile=function(o){if(i<3&&(p(o),h(),i++,1===i&&n.html("Now look for your number and<br>click on the row where it is now."),2===i&&n.html("One last time, click on the row<br>where your number is now."),3===i)){const o=l.join(""),n=function(o){let t=0;for(let n=0;n<o.length;n++)t+=Number(o[n])*Math.pow(3,n);return t}(o),i=[];for(let o=0;o<9;o++)i.push(r[0][o],r[1][o],r[2][o]);console.log(o),console.log(n),s=i[n],t=s,c.text(""+t),e.css("display","flex")}var t},r=function(){const o=u(),t=[];for(let n=0;n<3;n++){const n=o.splice(0,9);t.push(n)}return t}();const f={};r.forEach(((o,t)=>{o.forEach(((o,n)=>{f[o]=`card-pile${t+1}`}))})),a()}));
+
+//Uncompress JavaScript Code
+  
+// $(document).ready(function () {
+//     // Constants
+//     const ROWS = 3;
+//     const NUMBERS_PER_ROW = 9;
+//     const TOTAL_NUMBERS = ROWS * NUMBERS_PER_ROW;
+
+//     // DOM Elements
+//     const pileElements = $(".pile");
+//     const resultElement = $("#result");
+//     const popupContainer = $("#popupContainer");
+//     const popupLetter = $("#popupLetter");
+
+//     // Variables
+//     let numbers, selectedNumber, pileSelectedCount, shuffleOrder = [];
+
+//     // Combination lookup function using a ternary number (base 3) from right to left
+// function ternaryToInteger(ternaryNumber) {
+//     let integerValue = 0;
+
+//     for (let i = 0; i < ternaryNumber.length; i++) {
+//         const digit = Number(ternaryNumber[i]);
+//         integerValue += digit * Math.pow(3, i);
+//     }
+
+//     return integerValue;
+// }
+
+//     // Initialize the trick
+//     function initializeTrick() {
+//         selectedNumber = undefined;
+//         pileSelectedCount = 0;
+//         shuffleOrder = [];
+//         displayPiles();
+//         closeNumberPopup();
+//     }
+
+//     // Generate a random array of numbers and shuffle it
+//     function generateRandomNumbers() {
+//         const numbers = [...Array(TOTAL_NUMBERS).keys()].map(x => x + 1); // 1 to 27
+//         shuffleArray(numbers);
+//         return numbers;
+//     }
+
+//     // Shuffle an array
+//     function shuffleArray(array) {
+//         for (let i = array.length - 1; i > 0; i--) {
+//             const j = Math.floor(Math.random() * (i + 1));
+//             [array[i], array[j]] = [array[j], array[i]];
+//         }
+//     }
+
+//     // Generate unique number arrays for each pile
+//     function generateUniqueNumberArrays() {
+//         const uniqueNumbers = generateRandomNumbers();
+//         const outerArray = [];
+
+//         for (let i = 0; i < ROWS; i++) {
+//             const innerArray = uniqueNumbers.splice(0, NUMBERS_PER_ROW);
+//             outerArray.push(innerArray);
+//         }
+
+//         return outerArray;
+//     }
+
+//     // Distribute numbers to piles
+//     function distributeNumbers() {
+//         const newPiles = [[], [], []];
+//         let currentIndex = 0;
+
+//         for (let i = 0; i < numbers.length; i++) {
+//             for (let j = 0; j < numbers[i].length; j++) {
+//                 newPiles[currentIndex].push(numbers[i][j]);
+//                 currentIndex = (currentIndex + 1) % 3;
+//             }
+//         }
+
+//         numbers = newPiles;
+//     }
+
+//     // Shuffle the piles
+//     function shufflePiles(selectedPile) {
+//         const randomPosition = Math.floor(Math.random() * 3);
+
+//         [numbers[randomPosition], numbers[selectedPile]] = [numbers[selectedPile], numbers[randomPosition]];
+//         shuffleOrder.push(randomPosition);
+//         distributeNumbers();
+//     }
+
+//     // Display piles with animations
+//     function displayPiles() {
+//         pileElements.each(function (index) {
+//             $(this).html("");
+//             const pileData = numbers[index];
+//             pileData.forEach(number => {
+//                 const cardDiv = $("<div>").addClass("card " + letterColors[number]).text(number);
+//                 $(this).append(cardDiv);
+//                 cardDiv.css("opacity", "0");
+//                 setTimeout(() => {
+//                     cardDiv.addClass("animate__animated animate__bounceIn");
+//                 }, 50);
+//             });
+//         });
+//         resultElement.html("Once you memorize a number<br>click on the row where the number is");
+//     }
+
+//     // Show the number popup
+//     function showNumberPopup(number) {
+//         popupLetter.text("" + number);
+//         popupContainer.css("display", "flex");
+//     }
+
+//     // Close the number popup
+//     window.closeNumberPopup = function () {
+//         popupContainer.css("opacity", "0");
+//         setTimeout(() => {
+//             popupContainer.css("display", "none");
+//             popupContainer.css("opacity", "1");
+//         }, 300);
+//     }
+
+//     // Event Listeners
+//     $("#restartButton, #popupContainer").on("click", initializeTrick);
+
+// //for educational purposes
+//   $( "#reveal" ).on( "click", function() {
+//        $('.card-pile1').css("background-color", "#163B22");
+//        $('.card-pile2').css("background-color", "#162B22");
+// //        $('.card-pile3').css("background-color", "none");
+// } );
+
+//     // Make selectPile and closeNumberPopup functions accessible globally
+//     window.selectPile = function (pileNumber) {
+//         if (pileSelectedCount < 3) {
+//             shufflePiles(pileNumber);
+//             displayPiles();
+//             pileSelectedCount++;
+//             if (pileSelectedCount === 1) {
+//                 resultElement.html("Now look for your number and<br>click on the row where it is now.");
+//             }
+//             if (pileSelectedCount === 2) {
+//                 resultElement.html("One last time, click on the row<br>where your number is now.");
+//             }
+//             if (pileSelectedCount === 3) {
+//                 const shuffleOrderText = shuffleOrder.join('');
+//                 const theIndex = ternaryToInteger(shuffleOrderText);
+//                 const finalArray = [];
+//                 for (let i = 0; i < 9; i++) {
+//                     finalArray.push(numbers[0][i], numbers[1][i], numbers[2][i]);
+//                 }
+//               console.log(shuffleOrderText);
+//               console.log(theIndex);
+//                 selectedNumber = finalArray[theIndex];
+//                 showNumberPopup(selectedNumber);
+//             }
+//         }
+//     };
+
+//     // Initial setup
+//     numbers = generateUniqueNumberArrays();
+
+//     // Assign individual letter colors
+//     const letterColors = {};
+//     numbers.forEach((pile, pileIndex) => {
+//         pile.forEach((letter, letterIndex) => {
+//             letterColors[letter] = `card-pile${pileIndex + 1}`;
+//         });
+//     });
+
+//     initializeTrick();
+// });
+
+</script>
+</body>
+</html>
